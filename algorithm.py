@@ -48,9 +48,9 @@ df['Combined'] = df['description_cleaned'] + df['name_cleaned']
 #     color = input("Enter the color  : ").strip().lower()
 #     return occasion, material, style, color
 # # #
-def get_recommendations(occasion, age_group, description, cosine_sim, df,tfidf_vectorizer, top_n=3):
+def get_recommendations(occasion, details, style, color, cosine_sim, df,tfidf_vectorizer, top_n=3):
     # Create a combined query
-    query = description + ' ' + occasion + ' ' + age_group
+    query = occasion + ' ' + details + ' ' + style + ' ' + color
 
     # Transform the query using the trained TF-IDF Vectorizer
     query_vector = tfidf_vectorizer.transform([query])

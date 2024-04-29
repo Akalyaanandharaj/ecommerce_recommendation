@@ -10,9 +10,9 @@ app = Flask(__name__)
 def home():
     if (request.method == 'GET'):
         occasion = request.args.get('occasion')
-        material = request.args.get('material')
         style = request.args.get('style')
         color = request.args.get('color')
+        details = request.args.get('details')
 
         # Load TF-IDF Vectorizer
         with open('tfidf_vectorizer.pkl', 'rb') as f:
@@ -22,7 +22,7 @@ def home():
         with open('cosine_sim.pkl', 'rb') as f:
             cosine_sim = pickle.load(f)
 
-        results = get_recommendations(occasion, material, style, color, df, tfidf_vectorizer)
+        results = get_recommendations(occasion, details, style, color,cosine_sim, df, tfidf_vectorizer)
         return jsonify(results)
 
 if __name__ == "__main__":
