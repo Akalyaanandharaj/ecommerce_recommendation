@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 from flask import request
-from algorithm import get_recommendations,df
+from algorithm import get_recommendations
+from datacleaning import df
 import pickle
 
 app = Flask(__name__)
@@ -18,11 +19,10 @@ def home():
         with open('tfidf_vectorizer.pkl', 'rb') as f:
             tfidf_vectorizer = pickle.load(f)
 
-        # Load Cosine Similarity Matrix
-        with open('cosine_sim.pkl', 'rb') as f:
-            cosine_sim = pickle.load(f)
+        with open('tfidf_matrix.pkl', 'rb') as f:
+            tfidf_matrix = pickle.load(f)
 
-        results = get_recommendations(occasion, details, style, color,cosine_sim, df, tfidf_vectorizer)
+        results = get_recommendations(occasion, details, style, color, df, tfidf_vectorizer, tfidf_matrix)
         return jsonify(results)
 
 if __name__ == "__main__":
